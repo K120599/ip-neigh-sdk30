@@ -20,8 +20,9 @@ public class ArpNDK {
 
     private static native int ARPFromJNI(int fd);
 
-    public static String getARP() {
+    public static ArrayList getARP() {
         StringBuilder stringBuilder = new StringBuilder();
+        ArrayList<String> reachableDevices = new ArrayList<>();
         try {
             ParcelFileDescriptor[] pipe = ParcelFileDescriptor.createPipe();
             ParcelFileDescriptor readSidePfd = pipe[0];
@@ -38,11 +39,42 @@ public class ArpNDK {
             while ((line = reader.readLine()) != null) {
                 Log.e(TAG, "getARP: "+line );
                 stringBuilder.append(line).append("\n");
+                String line = line;
+                String[] words = line.split("\\s+");
+                // Create an object to store the data
+                DeviceDetails deviceInfo = new DeviceDetails();
+                deviceInfo.ip = words[0];
+                deviceInfo.device = words[1];
+                deviceInfo.lla = words[2];
+                deviceInfo.mac = words[3];
+                deviceInfo.status = words[4];
+                if(words[4] != null){
+                  reachableDevices.add(String.valueOf(deviceInfo))  
+                }
+                
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return stringBuilder.toString();
+        return reachableDevices;
     }
 
+}
+ class DeviceDetails {
+    String ip;
+    String device;
+    String lla;
+    String mac;
+    String status;
+
+    @Override
+    public String toString() {
+        return "{" +
+                "ip='" + ip + '\'' +
+                ", device='" + device + '\'' +
+                ", lla='" + lla + '\'' +
+                ", mac='" + mac + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }
