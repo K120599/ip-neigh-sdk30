@@ -74,11 +74,11 @@ public class ArpNDK {
     @Override
     public String toString() {
         return "{" +
-                "ip:'" + ip + '\'' +
-                ", device:'" + device + '\'' +
-                ", wlan:'" + wlan + '\'' +
-                ", lla:'" + lla + '\'' +
-                ", mac:'" + mac + '\'' +
+                "ip='" + ip + '\'' +
+                ", device='" + device + '\'' +
+                ", wlan='" + wlan + '\'' +
+                ", lla='" + lla + '\'' +
+                ", mac='" + mac + '\'' +
                 '}';
     }
 }
