@@ -50,10 +50,10 @@ public class ArpNDK {
                 deviceInfo.wlan = words[2];
                 deviceInfo.lla = words[3];
                 deviceInfo.mac = words[4];
-                deviceInfo.status = words[5];
-                if(words[5] != null){
+                // deviceInfo.status = words[5];
+                //if(words[5] != null){
                   reachableDevices.add(String.valueOf(deviceInfo)); 
-                }
+               // }
                 
             }
         } catch (IOException e) {
@@ -79,7 +79,7 @@ public class ArpNDK {
                 ", wlan='" + wlan + '\'' +
                 ", lla='" + lla + '\'' +
                 ", mac='" + mac + '\'' +
-                ", status='" + status + '\'' +
+               
                 '}';
     }
 }
