@@ -51,8 +51,8 @@ public class ArpNDK {
                 deviceInfo.lla = words[3];
                 deviceInfo.mac = words[4];
                 // deviceInfo.status = words[5];
-                if(words[4] != "FAILED"){
-                  reachableDevices.add(String.valueOf(deviceInfo)); 
+               if(!Objects.equals(words[4], "FAILED")){
+                    reachableDevices.add(String.valueOf(deviceInfo));
                 }
                 
             }
