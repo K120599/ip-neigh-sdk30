@@ -50,9 +50,9 @@ public class ArpNDK {
                 deviceInfo.lla = words[2];
                 deviceInfo.mac = words[3];
                 deviceInfo.status = words[4];
-                if(words[4] != null){
+               // if(words[4] != null){
                   reachableDevices.add(String.valueOf(deviceInfo)); 
-                }
+              //  }
                 
             }
         } catch (IOException e) {
