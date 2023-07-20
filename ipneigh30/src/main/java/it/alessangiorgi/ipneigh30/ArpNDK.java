@@ -69,7 +69,7 @@ public class ArpNDK {
     String wlan;
     String lla;
     String mac;
-    String status;
+   // String status;
 
     @Override
     public String toString() {
