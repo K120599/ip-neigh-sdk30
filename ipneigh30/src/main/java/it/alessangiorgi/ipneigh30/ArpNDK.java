@@ -39,8 +39,8 @@ public class ArpNDK {
             while ((line = reader.readLine()) != null) {
                 Log.e(TAG, "getARP: "+line );
                 stringBuilder.append(line).append("\n");
-                String line = line;
-                String[] words = line.split("\\s+");
+                String details = line;
+                String[] words = details.split("\\s+");
                 // Create an object to store the data
                 DeviceDetails deviceInfo = new DeviceDetails();
                 deviceInfo.ip = words[0];
