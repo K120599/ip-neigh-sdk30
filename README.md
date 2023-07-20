@@ -32,7 +32,7 @@ Step 2. Add the dependency
 ```gradle
 dependencies {
   ...
-  implementation 'com.github.K120599:ip-neigh-sdk30:1.0.5'
+  implementation 'com.github.K120599:ip-neigh-sdk30:1.2.5'
 }
 ```
 
