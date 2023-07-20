@@ -79,7 +79,6 @@ public class ArpNDK {
                 ", wlan='" + wlan + '\'' +
                 ", lla='" + lla + '\'' +
                 ", mac='" + mac + '\'' +
-               
                 '}';
     }
 }
