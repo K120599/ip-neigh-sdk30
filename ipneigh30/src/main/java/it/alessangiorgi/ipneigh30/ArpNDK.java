@@ -31,8 +31,10 @@ public class ArpNDK {
             int fd_write = writeSidePfd.detachFd();
             int returnCode = ARPFromJNI(fd_write);
 
-            if(returnCode != 0)
-                return ARPNDK_FAILED;
+             if(returnCode != 0){
+                 reachableDevices.add(ARPNDK_FAILED) ;
+                return reachableDevices;
+            }
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             String line = "";
