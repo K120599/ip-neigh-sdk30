@@ -53,14 +53,10 @@ public class ArpNDK {
 //                deviceMap.put("wlan", words[2]);
 //                deviceMap.put("lla", words[3]);
                 deviceMap.put("mac", words[4]);
-                Boolean status;
-                if(words[5] == null){
-                    status = false;
-                }else{
-                    status = true;
+                if(!words[4].equals("FAILED")){
+                    reachableDevices.add(deviceMap);
                 }
-                deviceMap.put("status", String.valueOf(status));
-                reachableDevices.add(deviceMap);
+                
             }
         } catch (IOException e) {
             e.printStackTrace();
