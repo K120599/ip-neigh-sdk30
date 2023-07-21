@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ArpNDK {
 
@@ -22,7 +24,7 @@ public class ArpNDK {
 
     public static ArrayList getARP() {
         StringBuilder stringBuilder = new StringBuilder();
-        ArrayList<String> reachableDevices = new ArrayList<>();
+        ArrayList<Map> reachableDevices = new ArrayList<>();
         try {
             ParcelFileDescriptor[] pipe = ParcelFileDescriptor.createPipe();
             ParcelFileDescriptor readSidePfd = pipe[0];
@@ -31,8 +33,10 @@ public class ArpNDK {
             int fd_write = writeSidePfd.detachFd();
             int returnCode = ARPFromJNI(fd_write);
 
-             if(returnCode != 0){
-                 reachableDevices.add(ARPNDK_FAILED) ;
+            if(returnCode != 0){
+                Map<String, String> errorMap = new HashMap<>();
+                errorMap.put("error",ARPNDK_FAILED);
+                reachableDevices.add(errorMap) ;
                 return reachableDevices;
             }
 
@@ -41,20 +45,15 @@ public class ArpNDK {
             while ((line = reader.readLine()) != null) {
                 Log.e(TAG, "getARP: "+line );
                 stringBuilder.append(line).append("\n");
-                String details = line;
-                String[] words = details.split("\\s+");
-                // Create an object to store the data
-                DeviceDetails deviceInfo = new DeviceDetails();
-                deviceInfo.ip = words[0];
-                deviceInfo.device = words[1];
-                deviceInfo.wlan = words[2];
-                deviceInfo.lla = words[3];
-                deviceInfo.mac = words[4];
-                // deviceInfo.status = words[5];
- if(!words[4].equals("FAILED")){
-                    reachableDevices.add(String.valueOf(deviceInfo));
-                }
-                
+                // Create a map of the properties
+                String[] words = line.split("\\s+");
+                Map<String, String> deviceMap = new HashMap<>();
+                deviceMap.put("ip", words[0]);
+                deviceMap.put("device", words[1]);
+                deviceMap.put("wlan", words[2]);
+                deviceMap.put("lla", words[3]);
+                deviceMap.put("mac", words[4]);
+                reachableDevices.add(deviceMap);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -62,23 +61,4 @@ public class ArpNDK {
         return reachableDevices;
     }
 
-}
- class DeviceDetails {
-    String ip;
-    String device;
-    String wlan;
-    String lla;
-    String mac;
-   // String status;
-
-    @Override
-    public String toString() {
-        return "{" +
-                "ip='" + ip + '\'' +
-                ", device='" + device + '\'' +
-                ", wlan='" + wlan + '\'' +
-                ", lla='" + lla + '\'' +
-                ", mac='" + mac + '\'' +
-                '}';
-    }
 }
