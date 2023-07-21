@@ -49,10 +49,17 @@ public class ArpNDK {
                 String[] words = line.split("\\s+");
                 Map<String, String> deviceMap = new HashMap<>();
                 deviceMap.put("ip", words[0]);
-                deviceMap.put("device", words[1]);
-                deviceMap.put("wlan", words[2]);
-                deviceMap.put("lla", words[3]);
+//                deviceMap.put("device", words[1]);
+//                deviceMap.put("wlan", words[2]);
+//                deviceMap.put("lla", words[3]);
                 deviceMap.put("mac", words[4]);
+                Boolean status;
+                if(words[5] == null){
+                    status = false;
+                }else{
+                    status = true;
+                }
+                deviceMap.put("status", String.valueOf(status));
                 reachableDevices.add(deviceMap);
             }
         } catch (IOException e) {
